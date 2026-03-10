@@ -1,0 +1,4 @@
+- Create a webxr scene using react three fiber
+    - show samples of different shapes
+    - include good lighting
+    - make it simple for learning
