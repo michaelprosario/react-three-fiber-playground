@@ -6,9 +6,6 @@ import { ShapesScene }      from './components/ShapesScene'
 import { MaterialsScene }   from './components/MaterialsScene'
 import { AnimationScene }   from './components/AnimationScene'
 import { EventsScene }      from './components/EventsScene'
-import { LightingScene }    from './components/LightingScene'
-import { DreiHelpersScene } from './components/DreiHelpersScene'
-import { XRAwareScene }     from './components/XRAwareScene'
 
 // Create the XR store — this manages the WebXR session
 const store = createXRStore()
@@ -18,9 +15,6 @@ const SCENES = [
   { id: 'materials', label: '2. Materials',        Component: MaterialsScene },
   { id: 'animation', label: '3. Animation',        Component: AnimationScene },
   { id: 'events',    label: '4. Pointer Events',   Component: EventsScene },
-  { id: 'lighting',  label: '5. Lighting',         Component: LightingScene },
-  { id: 'drei',      label: '6. Drei Helpers',     Component: DreiHelpersScene },
-  { id: 'xr',        label: '7. XR Aware',         Component: XRAwareScene },
 ]
 
 export default function App() {

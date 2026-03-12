@@ -50,7 +50,7 @@ export function MaterialsScene() {
 
       {/* Basic — no lighting, always flat */}
       <MaterialDemo position={[-4.5, 1.4, 0]} label="MeshBasicMaterial">
-        <meshBasicMaterial color="#e74c3c" />
+        <meshBasicMaterial color="#b41200" />
       </MaterialDemo>
 
       {/* Standard — PBR, responds to lights */}
