@@ -6,6 +6,7 @@ import { ShapesScene }      from './components/ShapesScene'
 import { MaterialsScene }   from './components/MaterialsScene'
 import { AnimationScene }   from './components/AnimationScene'
 import { EventsScene }      from './components/EventsScene'
+import { GltfScene }        from './components/GltfScene'
 
 // Create the XR store — this manages the WebXR session
 const store = createXRStore()
@@ -15,6 +16,7 @@ const SCENES = [
   { id: 'materials', label: '2. Materials',        Component: MaterialsScene },
   { id: 'animation', label: '3. Animation',        Component: AnimationScene },
   { id: 'events',    label: '4. Pointer Events',   Component: EventsScene },
+  { id: 'gltf',      label: '5. Load GLB Model',   Component: GltfScene },
 ]
 
 export default function App() {
