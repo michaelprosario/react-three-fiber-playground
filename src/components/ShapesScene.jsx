@@ -6,7 +6,7 @@ import { Text } from '@react-three/drei'
  * ShapesScene
  * -----------
  * A simple, well-lit collection of common 3-D shapes arranged in a circle around
- * the viewer. Each shape slowly rotates so you can see its geometry from all sides.
+ * the viewer. 
  *
  * Shapes included:
  *   Box          – BoxGeometry
@@ -21,14 +21,6 @@ import { Text } from '@react-three/drei'
 // ─── Individual shape wrapper ────────────────────────────────────────────────
 function Shape({ position, color, label, children }) {
   const groupRef = useRef()
-
-  // Slow continuous rotation so the shape is visible from all angles
-  useFrame((_, delta) => {
-    if (groupRef.current) {
-      groupRef.current.rotation.y += delta * 0.5
-      groupRef.current.rotation.x += delta * 0.2
-    }
-  })
 
   return (
     <group position={position} >
@@ -141,11 +133,6 @@ export function ShapesScene() {
         )
       })}
 
-      {/* ── Ground plane ──────────────────────────────────────────────────── */}
-      <mesh receiveShadow rotation={[-Math.PI / 2, 0, 0]} position={[0, 0, 0]}>
-        <planeGeometry args={[20, 20]} />
-        <meshStandardMaterial color="#222244" roughness={0.9} metalness={0.1} />
-      </mesh>
 
       {/* ── Sky / background color ────────────────────────────────────────── */}
       <color attach="background" args={['#0a0a1a']} />
