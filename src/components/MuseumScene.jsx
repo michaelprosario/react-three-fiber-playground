@@ -1,4 +1,4 @@
-import { useMemo, useRef } from 'react'
+import { useMemo, useRef, useState } from 'react'
 import { useFrame } from '@react-three/fiber'
 import { Text } from '@react-three/drei'
 
@@ -136,7 +136,38 @@ function LightRail({ position }) {
   )
 }
 
-export function MuseumScene() {
+function ReturnPortal({ onNavigate }) {
+  const [hovered, setHovered] = useState(false)
+
+  return (
+    <group position={[0, 1.5, 7.8]}>
+      <mesh
+        onClick={() => onNavigate?.('hyperlink')}
+        onPointerOver={() => setHovered(true)}
+        onPointerOut={() => setHovered(false)}
+        scale={hovered ? 1.03 : 1}
+      >
+        <boxGeometry args={[3.8, 1.1, 0.22]} />
+        <meshStandardMaterial
+          color={hovered ? '#fff6e8' : '#2f2d2a'}
+          emissive={hovered ? '#8b5e34' : '#000000'}
+          emissiveIntensity={hovered ? 0.35 : 0}
+          roughness={0.5}
+        />
+      </mesh>
+
+      <Text position={[0, 0.1, 0.12]} fontSize={0.16} color={hovered ? '#1f2937' : '#f4efe7'} anchorX="center">
+        Back To Hyperlink Lesson
+      </Text>
+
+      <Text position={[0, -0.2, 0.12]} fontSize={0.1} color={hovered ? '#4b5563' : '#d6d3d1'} anchorX="center">
+        onClick -&gt; onNavigate('hyperlink')
+      </Text>
+    </group>
+  )
+}
+
+export function MuseumScene({ onNavigate }) {
   return (
     <>
       <color attach="background" args={['#f4efe7']} />
@@ -211,6 +242,8 @@ export function MuseumScene() {
       >
         contemporary objects, warm gallery light, and spatial rhythm
       </Text>
+
+      <ReturnPortal onNavigate={onNavigate} />
     </>
   )
 }

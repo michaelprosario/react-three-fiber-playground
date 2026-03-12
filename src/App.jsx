@@ -9,6 +9,7 @@ import { EventsScene }      from './components/EventsScene'
 import { GltfScene }        from './components/GltfScene'
 import { RaycastingScene }  from './components/RaycastingScene'
 import { MuseumScene }      from './components/MuseumScene'
+import { HyperlinkScene }   from './components/HyperlinkScene'
 
 // Create the XR store — this manages the WebXR session
 const store = createXRStore()
@@ -21,6 +22,7 @@ const SCENES = [
   { id: 'gltf',      label: '5. Load GLB Model',   Component: GltfScene },
   { id: 'raycasting', label: '6. Raycasting',        Component: RaycastingScene },
   { id: 'museum', label: '7. Cool Museum', Component: MuseumScene },
+  { id: 'hyperlink', label: '8. Scene Hyperlinks', Component: HyperlinkScene },
 ]
 
 export default function App() {
@@ -63,7 +65,7 @@ export default function App() {
       >
         {/* Wrap the scene with <XR> to enable WebXR support */}
         <XR store={store}>
-          <ActiveScene />
+          <ActiveScene onNavigate={setActiveId} activeId={activeId} />
           {/* OrbitControls only applies outside XR; the headset drives the camera in XR */}
           <OrbitControls makeDefault />
         </XR>
