@@ -31,7 +31,7 @@ function Shape({ position, color, label, children }) {
   })
 
   return (
-    <group position={position}>
+    <group position={position} >
       {/* Rotating mesh */}
       <group ref={groupRef}>
         <mesh castShadow receiveShadow>

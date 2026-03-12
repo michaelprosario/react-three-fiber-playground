@@ -1,67 +1,134 @@
+import { useState } from 'react'
 import { Canvas } from '@react-three/fiber'
 import { createXRStore, XR } from '@react-three/xr'
 import { OrbitControls } from '@react-three/drei'
-import { ShapesScene } from './components/ShapesScene'
+import { ShapesScene }      from './components/ShapesScene'
+import { MaterialsScene }   from './components/MaterialsScene'
+import { AnimationScene }   from './components/AnimationScene'
+import { EventsScene }      from './components/EventsScene'
+import { LightingScene }    from './components/LightingScene'
+import { DreiHelpersScene } from './components/DreiHelpersScene'
+import { XRAwareScene }     from './components/XRAwareScene'
 
 // Create the XR store — this manages the WebXR session
 const store = createXRStore()
 
+const SCENES = [
+  { id: 'shapes',    label: '1. Basic Shapes',    Component: ShapesScene },
+  { id: 'materials', label: '2. Materials',        Component: MaterialsScene },
+  { id: 'animation', label: '3. Animation',        Component: AnimationScene },
+  { id: 'events',    label: '4. Pointer Events',   Component: EventsScene },
+  { id: 'lighting',  label: '5. Lighting',         Component: LightingScene },
+  { id: 'drei',      label: '6. Drei Helpers',     Component: DreiHelpersScene },
+  { id: 'xr',        label: '7. XR Aware',         Component: XRAwareScene },
+]
+
 export default function App() {
+  const [activeId, setActiveId] = useState('shapes')
+  const { Component: ActiveScene } = SCENES.find(s => s.id === activeId)
+
   return (
-    <>
-      {/* Overlay buttons for entering VR or AR */}
-      <div
-        style={{
-          position: 'absolute',
-          bottom: '24px',
-          left: '50%',
-          transform: 'translateX(-50%)',
-          display: 'flex',
-          gap: '16px',
-          zIndex: 10,
-        }}
-      >
-        <button
-          onClick={() => store.enterVR()}
-          style={buttonStyle('#4f46e5')}
-        >
+    <div style={{ width: '100vw', height: '100vh', overflow: 'hidden' }}>
+
+      {/* ── Left sidebar navigation ── */}
+      <nav style={sidebarStyle}>
+        <p style={navTitleStyle}>R3F Playground</p>
+
+        {SCENES.map(({ id, label }) => (
+          <button
+            key={id}
+            onClick={() => setActiveId(id)}
+            style={navBtnStyle(id === activeId)}
+          >
+            {label}
+          </button>
+        ))}
+
+        {/* Spacer — pushes XR buttons to the bottom */}
+        <div style={{ flex: 1 }} />
+
+        <button onClick={() => store.enterVR()} style={xrBtnStyle('#4f46e5')}>
           Enter VR
         </button>
-        <button
-          onClick={() => store.enterAR()}
-          style={buttonStyle('#0891b2')}
-        >
+        <button onClick={() => store.enterAR()} style={xrBtnStyle('#0891b2')}>
           Enter AR
         </button>
-      </div>
+      </nav>
 
-      {/* The 3-D Canvas */}
+      {/* ── The 3-D Canvas (fills entire viewport behind sidebar) ── */}
       <Canvas
         camera={{ position: [0, 1.6, 5], fov: 60 }}
+        shadows
         style={{ width: '100vw', height: '100vh' }}
       >
         {/* Wrap the scene with <XR> to enable WebXR support */}
         <XR store={store}>
-          <ShapesScene />
-          {/* OrbitControls only applies outside XR; in XR, the headset drives the camera */}
+          <ActiveScene />
+          {/* OrbitControls only applies outside XR; the headset drives the camera in XR */}
           <OrbitControls makeDefault />
         </XR>
       </Canvas>
-    </>
+
+    </div>
   )
 }
 
-function buttonStyle(bg) {
+// ── Styles ────────────────────────────────────────────────────────────────────
+
+const sidebarStyle = {
+  position: 'absolute',
+  top: 0,
+  left: 0,
+  width: '190px',
+  height: '100%',
+  background: 'rgba(8, 8, 24, 0.88)',
+  backdropFilter: 'blur(10px)',
+  display: 'flex',
+  flexDirection: 'column',
+  padding: '16px 10px',
+  gap: '4px',
+  zIndex: 20,
+  boxSizing: 'border-box',
+  borderRight: '1px solid rgba(255,255,255,0.08)',
+}
+
+const navTitleStyle = {
+  color: '#a5b4fc',
+  fontSize: '11px',
+  fontFamily: 'sans-serif',
+  fontWeight: '700',
+  textTransform: 'uppercase',
+  letterSpacing: '0.1em',
+  margin: '0 0 10px 4px',
+}
+
+function navBtnStyle(active) {
   return {
-    padding: '12px 28px',
+    padding: '8px 12px',
+    background: active ? '#4f46e5' : 'transparent',
+    color: active ? '#ffffff' : '#94a3b8',
+    border: active ? '1px solid #6366f1' : '1px solid transparent',
+    borderRadius: '6px',
+    fontSize: '12px',
+    cursor: 'pointer',
+    fontFamily: 'sans-serif',
+    textAlign: 'left',
+    width: '100%',
+  }
+}
+
+function xrBtnStyle(bg) {
+  return {
+    padding: '8px 12px',
     background: bg,
     color: '#fff',
     border: 'none',
-    borderRadius: '8px',
-    fontSize: '16px',
+    borderRadius: '6px',
+    fontSize: '12px',
     cursor: 'pointer',
     fontFamily: 'sans-serif',
     fontWeight: '600',
-    boxShadow: '0 4px 14px rgba(0,0,0,0.6)',
+    width: '100%',
+    marginTop: '4px',
   }
 }

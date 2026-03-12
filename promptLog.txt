@@ -2,3 +2,23 @@
     - show samples of different shapes
     - include good lighting
     - make it simple for learning
+
+    ====
+
+    As a web dev teacher, outline presentation exploring the concepts of webxr and practical use cases.
+    - outline concepts of webxr
+    - outline related react concepts
+    - explore key concepts related to react three fiber
+    - think about code samples that would help explore webxr concepts well.
+
+    Document in tutorial.md
+
+
+    ===
+
+    As a web dev teacher, create a series of scenes that demo the concepts mentioned in tutorial.md.
+    - make samples small on concise
+    - the index of the app should include a menu enabling me to navigate to different scenes
+    - include fun and colorful geometry
+
+    think about these requirements and document in plan_samples.md
