@@ -75,11 +75,6 @@ The app also wires up **WebXR** (via `@react-three/xr`) so you can hit **Enter V
 - [Drei component catalogue](https://drei.pmnd.rs/)
 - [Three.js documentation](https://threejs.org/docs/)
 - [Three.js fundamentals](https://threejsfundamentals.org/)
-
-### Tutorials & blog posts
-- [Intro to React Three Fiber](https://dev.to/nicholasgasior/intro-to-react-three-fiber-j3o) — Dev.to walkthrough covering the basics
-- [Building a 3D scene with React Three Fiber](https://blog.logrocket.com/build-3d-app-react-three-fiber/) — LogRocket deep-dive
-- [Animating with useFrame](https://docs.pmnd.rs/react-three-fiber/api/hooks#useframe) — official docs section on the render loop hook
 - [The pmndrs ecosystem](https://pmnd.rs/) — home of R3F, Drei, Zustand, Jotai, and other related libraries
 
 ### Video courses
